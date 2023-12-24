@@ -235,7 +235,7 @@ model.add(BatchNormalization())
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 
-# Eleventh Output layer with 1000 units
+# Eleventh Output layer with 16 units
 model.add(Dense(NUM_OF_CLASS, activation='softmax'))
 
 model.summary()
