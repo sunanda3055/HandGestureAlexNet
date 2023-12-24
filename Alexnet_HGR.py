@@ -104,7 +104,7 @@ def processFrame(img):
     LL, (LH, HL, HH) = pywt.dwt2(masked_img, 'haar')
     img = np.concatenate((LL.flatten(), LH.flatten(), HL.flatten(), HH.flatten()))
     
-    # LBP-based feature extraction
+    # Local Binary Pattern
     radius = 3
     n_points = 8 * radius
     lbp = local_binary_pattern(masked_img, n_points, radius, method='uniform')
@@ -241,7 +241,6 @@ model.add(Dense(NUM_OF_CLASS, activation='softmax'))
 model.summary()
 
 
-#taken from old keras source code
 def get_f1(y_true, y_pred):
 
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
@@ -252,6 +251,7 @@ def get_f1(y_true, y_pred):
     f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
 
     return f1_val
+
 
 #Compiling model
 model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy', 'Precision', 'Recall', get_f1])
