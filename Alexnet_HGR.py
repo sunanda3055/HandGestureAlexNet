@@ -1,3 +1,5 @@
+# Hand Gesture Recognition
+
 import numpy as np
 import os
 from PIL import Image
@@ -24,6 +26,7 @@ IMG_SIZE = 128
 img_w = 128
 img_h = 128
 NUM_OF_CLASS = 16
+
 
 def change_img_scale(img, scale):
     if scale=='rgb':
@@ -90,7 +93,7 @@ def processFrame(img):
     # Find the contour with the largest area (presumably the hand region)
     max_contour = max(contours, key=cv2.contourArea)
     
-    # Create a mask of the hand region
+    # Create a Binary mask of the hand region
     mask = np.zeros_like(img)
     cv2.drawContours(mask, [max_contour], 0, 255, -1)
     
@@ -108,9 +111,11 @@ def processFrame(img):
     hist, _ = np.histogram(lbp, bins=np.arange(0, n_points + 3), range=(0, n_points + 2))
     hist = hist.astype("float")
     hist /= (hist.sum() + 1e-7)
+
+    # Fusion
     img = np.concatenate((img, hist))
 
-    # Normalize pixel values again
+    # Normalize pixel values
     img = masked_img / 255
     
     return img
