@@ -1,1 +1,1 @@
-# Hand Gesture Recognition using modified AlexNet11 Layer model.
+A Novel Feature Fusion Technique for Robust Hand Gesture Recognition.
